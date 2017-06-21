@@ -3,6 +3,8 @@ pipeline {
     stages {
 	stage('test'){
 	    step {
+		echo " Stage: test "
+		echo " Step: npm test" 
 		echo "Hello world without sh"
 		sh 'echo "Hello World sh"'
 		sh 'npm --version'

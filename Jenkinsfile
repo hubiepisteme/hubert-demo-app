@@ -1,2 +1,5 @@
 node {
+   stage ('checkout'){
+   
+   }
 }

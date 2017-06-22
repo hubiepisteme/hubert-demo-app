@@ -5,4 +5,8 @@ node {
    stage ('install dependences'){
       sh 'npm install'
    }
+   
+   stage ('build'){
+      sh 'npm run build'
+   }
 }

@@ -7,7 +7,7 @@ node {
    }
    
    stage ('test'){
-      sh 'npm test'
+      sh 'CI=1 npm test'
    }
    stage ('build'){
       sh 'npm run build'

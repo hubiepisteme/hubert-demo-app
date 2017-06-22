@@ -12,4 +12,8 @@ node {
    stage ('build'){
       sh 'npm run build'
    }
+
+   stage ('zip build result'){
+      sh 'zip -r build.zip build'
+   }
 }

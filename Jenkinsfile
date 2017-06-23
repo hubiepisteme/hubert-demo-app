@@ -22,16 +22,18 @@ node {
          sh 'zip -r ../build.zip *'
      }
    }
+
+   stage ('attach artifacts to the build') {
+      archiveArtifacts artifacts: 'build.zip', 
+                       caseSensitive: false, 
+                       onlyIfSuccessful: true      
+   }
+   
    stage ('clean workspace') {
       cleanWs(
          patterns: [
             [pattern: 'build.zip', type: 'EXCLUDE']
 	 ]
       )
-   }
-   stage ('Attache artifacts to the build') {
-      archiveArtifacts artifacts: 'build.zip', 
-                       caseSensitive: false, 
-                       onlyIfSuccessful: true      
    }
 }

@@ -17,14 +17,14 @@ node {
      sh 'cd build'
      sh 'ls -la'
      sh 'cd build; ls -la'
-     sh 'export JSON_PACKAGE_VERSION_NUMBER=1.1.1'     
+     env.JSON_PACKAGE_VERSION_NUMBER = '1.1.1'     
      dir ('build') {
          sh 'zip -r ../build-$JSON_PACKAGE_VERSION_NUMBER.zip *'     
      }
    }
 
    stage ('attach artifacts to the build') {
-      archiveArtifacts artifacts: 'build.zip', 
+      archiveArtifacts artifacts: 'build-$JSON_PACKAGE_VERSION_NUMBER.zip', 
                        caseSensitive: false, 
                        onlyIfSuccessful: true      
    }

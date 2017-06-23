@@ -30,8 +30,7 @@ node {
    }
    
    stage ('clean workspace') {
-      cleanWs
-         deleteDirs: true,
+      cleanWs deleteDirs: true,
 	 patterns: [
             [pattern: 'node_modules/*', type: 'EXCLUDE']
 	 ]

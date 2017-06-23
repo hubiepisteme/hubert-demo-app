@@ -25,8 +25,7 @@ node {
    stage ('clean workspace') {
       cleanWs(
          patterns: [
-            [pattern: 'build.zip', type: 'EXCLUDE'], 
-            [pattern: '', type: 'INCLUDE']
+            [pattern: 'build.zip', type: 'EXCLUDE']
 	 ]
       )
    }

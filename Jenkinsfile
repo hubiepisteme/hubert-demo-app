@@ -24,7 +24,7 @@ node {
    }
 
    stage ('attach artifacts to the build') {
-      archiveArtifacts artifacts: 'build-1.1.1.20.zip', 
+      archiveArtifacts artifacts: 'build-1.1.1.zip', 
                        caseSensitive: false, 
                        onlyIfSuccessful: true      
    }

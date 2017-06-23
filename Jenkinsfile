@@ -17,7 +17,7 @@ node {
      sh 'cd build'
      sh 'ls -la'
      sh 'cd build; ls -la'
-     env.JSON_PACKAGE_VERSION_NUMBER = '1.1.1'     
+     env.JSON_PACKAGE_VERSION_NUMBER = sh 'python packageVersion.py'     
      dir ('build') {
          sh 'zip -r ../build-$JSON_PACKAGE_VERSION_NUMBER.zip *'     
      }

@@ -17,6 +17,6 @@ node {
      sh 'cd build'
      sh 'ls -la'
      sh 'cd build; ls -la'      
-     sh 'zip -r build.zip *'
+     sh 'cd build; zip -r build.zip *'
    }
 }

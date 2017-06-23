@@ -24,7 +24,7 @@ node {
    }
 
    stage ('attach artifacts to the build') {
-      archiveArtifacts artifacts: 'build-$JSON_PACKAGE_VERSION_NUMBER.zip', 
+      archiveArtifacts artifacts: 'build-1.1.1.20.zip', 
                        caseSensitive: false, 
                        onlyIfSuccessful: true      
    }

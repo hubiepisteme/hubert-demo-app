@@ -24,6 +24,8 @@ node {
    }
 
    stage ('attach artifacts to the build') {
+      String name = 'build-' + JSON_PACKAGE_VERSION_NUMBER + '.zip'
+	echo name
       archiveArtifacts artifacts: 'build-1.1.1.zip', 
                        caseSensitive: false, 
                        onlyIfSuccessful: true      

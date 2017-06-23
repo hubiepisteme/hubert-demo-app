@@ -10,7 +10,7 @@ node {
       sh 'CI=1 npm test'
    }
    stage ('build'){
-      step ('npm build') {
+      steps {
           sh 'npm run build'
       }
    }

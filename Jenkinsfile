@@ -22,4 +22,12 @@ node {
          sh 'zip -r ../build.zip *'
      }
    }
+   stage ('clean workspace') {
+      cleanWs(
+         patterns: [
+            [pattern: 'build.zip', type: 'EXCLUDE'], 
+            [pattern: '', type: 'INCLUDE']
+	 ]
+      )
+   }
 }

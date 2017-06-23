@@ -29,4 +29,10 @@ node {
 	 ]
       )
    }
+   stage ('Attache artifacts to the build') {
+      archiveArtifacts 
+          artifacts: 'build.zip', 
+          caseSensitive: false, 
+          onlyIfSuccessful: true      
+   }
 }

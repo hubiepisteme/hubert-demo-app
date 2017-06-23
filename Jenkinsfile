@@ -32,7 +32,7 @@ node {
    stage ('clean workspace') {
       cleanWs(
          patterns: [
-            [pattern: 'build.zip', type: 'EXCLUDE']
+            [pattern: 'node_modules/*', type: 'EXCLUDE']
 	 ]
       )
    }

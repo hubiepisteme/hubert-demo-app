@@ -14,6 +14,7 @@ node {
    }
 
    stage ('zip build result'){
-      sh 'zip -r build.zip build'
+     sh 'cd build'      
+     sh 'zip -r build.zip *'
    }
 }

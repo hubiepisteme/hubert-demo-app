@@ -38,8 +38,8 @@ node {
       cleanWs deleteDirs: true,
 	        patterns: [
             [pattern: '*', type: 'INCLUDE'],
+            [pattern: '.git/**', type: 'INCLUDE'],
             [pattern: 'g*/**', type: 'INCLUDE']
 	        ]
-      )
    }
 }

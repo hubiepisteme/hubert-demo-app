@@ -38,7 +38,7 @@ node {
       cleanWs(
 	        patterns: [
             [pattern: '*/', type: 'INCLUDE'],
-            [pattern: 'node_modules/**', type: 'EXCLUDE']
+            [pattern: '.node_modules/**', type: 'EXCLUDE']
 	        ]
       )
    }

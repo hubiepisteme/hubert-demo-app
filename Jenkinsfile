@@ -22,12 +22,12 @@ node {
      //def ret = sh(script: 'uname', returnStdout: true)
      env.BUILD_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true) + '.' + BUILD_NUMBER
      dir ('build') {
-         sh 'zip -r ../build-$VERSION_NUMBER.zip *'
+         sh 'zip -r ../build-$BUILD_VERSION_NUMBER.zip *'
      }
    }
 
    stage ('attach artifacts to the build') {
-      String  deployPackageName = 'build-' + VERSION_NUMBER + '.zip'
+      String  deployPackageName = 'build-' + BUILD_VERSION_NUMBER + '.zip'
 	    echo deployPackageName
       archiveArtifacts artifacts: deployPackageName,
                        caseSensitive: false,

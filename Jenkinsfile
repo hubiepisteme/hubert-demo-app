@@ -19,14 +19,14 @@ node {
      sh 'cd build'
      sh 'ls -la'
      sh 'cd build; ls -la'
-     env.JSON_PACKAGE_VERSION_NUMBER = sh 'python packageVersion.py'
+     env.VERSION_NUMBER = sh 'python packageVersion.py' + '.' + BUILD_NUMBER
      dir ('build') {
-         sh 'zip -r ../build-$JSON_PACKAGE_VERSION_NUMBER.zip *'
+         sh 'zip -r ../build-$VERSION_NUMBER.zip *'
      }
    }
 
    stage ('attach artifacts to the build') {
-      String  deployPackageName = 'build-' + JSON_PACKAGE_VERSION_NUMBER + '.zip'
+      String  deployPackageName = 'build-' + VERSION_NUMBER + '.zip'
 	    echo deployPackageName
       archiveArtifacts artifacts: deployPackageName,
                        caseSensitive: false,

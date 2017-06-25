@@ -19,7 +19,7 @@ node {
      sh 'cd build'
      sh 'ls -la'
      sh 'cd build; ls -la'
-     #def ret = sh(script: 'uname', returnStdout: true)
+     //def ret = sh(script: 'uname', returnStdout: true)
      env.BUILD_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true) + '.' + BUILD_NUMBER
      dir ('build') {
          sh 'zip -r ../build-$VERSION_NUMBER.zip *'

@@ -27,7 +27,7 @@ node {
    }
 
    stage ('attach artifacts to the build') {
-      String  deployPackageName = 'build-' + BUILD_VERSION_NUMBER + '.zip'
+      String  deployPackageName = 'build-' + ${BUILD_VERSION_NUMBER} + '.zip'
 	    echo 'Deploy package name: ' + deployPackageName
       archiveArtifacts artifacts: deployPackageName,
                        caseSensitive: false,

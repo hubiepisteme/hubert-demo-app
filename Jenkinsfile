@@ -7,7 +7,7 @@ node {
    stage ('install dependences'){
       sh 'npm install'
    }
-   
+
    stage ('test'){
       sh 'CI=1 npm test'
    }
@@ -19,25 +19,25 @@ node {
      sh 'cd build'
      sh 'ls -la'
      sh 'cd build; ls -la'
-     env.JSON_PACKAGE_VERSION_NUMBER = sh 'python packageVersion.py'     
+     env.JSON_PACKAGE_VERSION_NUMBER = sh 'python packageVersion.py'
      dir ('build') {
-         sh 'zip -r ../build-$JSON_PACKAGE_VERSION_NUMBER.zip *'     
+         sh 'zip -r ../build-$JSON_PACKAGE_VERSION_NUMBER.zip *'
      }
    }
 
    stage ('attach artifacts to the build') {
       String  deployPackageName = 'build-' + JSON_PACKAGE_VERSION_NUMBER + '.zip'
-	echo deployPackageName
-      archiveArtifacts artifacts: deployPackageName, 
-                       caseSensitive: false, 
-                       onlyIfSuccessful: true      
+	    echo deployPackageName
+      archiveArtifacts artifacts: deployPackageName,
+                       caseSensitive: false,
+                       onlyIfSuccessful: true
    }
-   
+
    stage ('clean workspace') {
       cleanWs deleteDirs: true,
-	 patterns: [
+	        patterns: [
             [pattern: 'node_modules/*', type: 'EXCLUDE']
-	 ]
-      
+	        ]
+
    }
 }

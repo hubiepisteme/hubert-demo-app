@@ -35,11 +35,9 @@ node {
    }
 
    stage ('clean workspace') {
-      cleanWs(
+      cleanWs deleteDir: true
 	        patterns: [
-            [pattern: '*', type: 'INCLUDE'],
-            [pattern: '.*/**', type: 'INCLUDE']
+            [pattern: '.g*/**', type: 'INCLUDE']
 	        ]
-      )
    }
 }

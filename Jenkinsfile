@@ -37,7 +37,8 @@ node {
    stage ('clean workspace') {
       cleanWs(
 	        patterns: [
-            [pattern: '*', type: 'INCLUDE']
+            [pattern: '*', type: 'INCLUDE'],
+            [pattern: '.*/**', type: 'INCLUDE']
 	        ]
       )
    }

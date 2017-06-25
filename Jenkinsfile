@@ -20,7 +20,7 @@ node {
      sh 'ls -la'
      sh 'cd build; ls -la'
      //def ret = sh(script: 'uname', returnStdout: true)
-     env.BUILD_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true) + '.' + BUILD_NUMBER
+     env.BUILD_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true).trim() + '.' + BUILD_NUMBER
      dir ('build') {
          sh 'zip -r ../build-$BUILD_VERSION_NUMBER.zip *'
      }
@@ -28,7 +28,7 @@ node {
 
    stage ('attach artifacts to the build') {
       String  deployPackageName = 'build-' + BUILD_VERSION_NUMBER + '.zip'
-	    echo deployPackageName
+	    echo 'Deploy package name: ' + deployPackageName
       archiveArtifacts artifacts: deployPackageName,
                        caseSensitive: false,
                        onlyIfSuccessful: true

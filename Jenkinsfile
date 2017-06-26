@@ -6,7 +6,7 @@ node {
    }
    stage ('install dependences'){
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '9d682939-420c-44eb-852e-a40f5bca0760', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-      echo 'Git CREDENTIALS: ${GIT_USERNAME}:${GIT_PASSWORD}'
+      echo 'Git CREDENTIALS: ' + GIT_USERNAME + ':' + GIT_PASSWORD
     }
       sh 'npm install'
    }

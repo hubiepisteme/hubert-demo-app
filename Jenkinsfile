@@ -43,9 +43,9 @@ node {
    }
 
    stage ('clean workspace') {
-      cleanWs deleteDir: true
-	        patterns: [
-            [pattern: 'node_modules', type: 'EXCLUDE']
-	        ]
+      //cleanWs deleteDir: true
+	    //    patterns: [
+      //      [pattern: 'node_modules', type: 'EXCLUDE']
+	    //    ]
    }
 }

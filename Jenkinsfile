@@ -25,7 +25,11 @@ node {
      dir ('build') {
          sh 'zip -r ../build-$BUILD_VERSION_NUMBER.zip *'
      }
-     sh 'git push'
+
+
+     //withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'MyID', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+         sh 'git push master package.json https://"hubiepisteme":"dcxevy12"@github.com/hubiepisteme/hubert-demo-app.git'
+     //}
    }
 
    stage ('attach artifacts to the build') {

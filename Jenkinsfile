@@ -5,6 +5,9 @@ node {
        checkout scm
    }
    stage ('install dependences'){
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'hubiepisteme', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+      echo 'Git CREDENTIALS: ${GIT_USERNAME}:${GIT_PASSWORD}'
+    }
       sh 'npm install'
    }
 
@@ -35,9 +38,7 @@ node {
      }
 
 
-     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'hubiepisteme', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-        echo 'Git CREDENTIALS: ${GIT_USERNAME}:${GIT_PASSWORD}'
-     }
+
    }
 
    stage ('attach artifacts to the build') {

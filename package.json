@@ -1,6 +1,6 @@
 {
   "name": "hubert-demo-app",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "private": true,
   "dependencies": {
     "react": "^15.6.1",

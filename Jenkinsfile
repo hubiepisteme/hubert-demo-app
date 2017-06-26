@@ -19,9 +19,12 @@ node {
      sh 'cd build'
      sh 'ls -la'
      sh 'cd build; ls -la'
+     echo 'npm --no-git-tag-version version patch'
+     sh 'git branch -a; git status; git checkout master; git branch -a; git status; npm --no-git-tag-version version patch'
 
-     sh 'npm --no-git-tag-version version patch'
      env.PACKAGE_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true).trim();
+
+     echo 'git push'
      sh 'git branch -a; git status; git checkout master; git branch -a; git status; git remote -v; git config remote.origin.url https://hubiepisteme:dcxevy12@github.com/hubiepisteme/hubert-demo-app.git; git remote -v; git pull; git commit -a -m "Bumped to version ${PACKAGE_VERSION_NUMBER}"; git push; git status'
      //def ret = sh(script: 'uname', returnStdout: true)
 

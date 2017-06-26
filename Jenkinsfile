@@ -5,9 +5,6 @@ node {
        checkout scm
    }
    stage ('install dependences'){
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '9d682939-420c-44eb-852e-a40f5bca0760', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-      echo 'Git CREDENTIALS: ' + GIT_USERNAME + ':' + GIT_PASSWORD
-    }
       sh 'npm install'
    }
 
@@ -28,7 +25,11 @@ node {
      env.PACKAGE_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true).trim();
 
      echo 'Push changes to GitHub: git push'
-     sh 'git branch -a; git status; git remote -v; git config remote.origin.url https://hubiepisteme:dcxevy12@github.com/hubiepisteme/hubert-demo-app.git; git remote -v; git commit -a -m "Bump to version ${PACKAGE_VERSION_NUMBER}"; git push; git status'
+     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '9d682939-420c-44eb-852e-a40f5bca0760', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+       sh 'git branch -a; git status; git remote -v; git config remote.origin.url https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/hubiepisteme/hubert-demo-app.git; git remote -v; git commit -a -m "Bump to version ${PACKAGE_VERSION_NUMBER}"; git push; git status'
+     }
+
+
      //def ret = sh(script: 'uname', returnStdout: true)
 
      env.BUILD_VERSION_NUMBER = PACKAGE_VERSION_NUMBER + '-buildNr-' + BUILD_NUMBER

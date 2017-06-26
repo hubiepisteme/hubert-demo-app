@@ -19,7 +19,7 @@ node {
      sh 'cd build'
      sh 'ls -la'
      sh 'cd build; ls -la'
-     sh 'git status; git checkout master; git status; npm --no-git-tag-version version patch -m "Bumped to version %s"; git status; git push https://github.com/hubiepisteme/hubert-demo-app.git; git status'
+     sh 'git pull https://github.com/hubiepisteme/hubert-demo-app.git; git status; git checkout master; git status; npm --no-git-tag-version version patch -m "Bumped to version %s"; git status; git push https://github.com/hubiepisteme/hubert-demo-app.git; git status'
      //def ret = sh(script: 'uname', returnStdout: true)
      env.BUILD_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true).trim() + '-buildNr-' + BUILD_NUMBER
      //sh 'git status; git commit -m "Bump package version to ${BUILD_VERSION_NUMBER}"; git status; git push https://github.com/hubiepisteme/hubert-demo-app.git master'

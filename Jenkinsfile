@@ -28,7 +28,7 @@ node {
 
 
      //withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'MyID', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-         sh 'git push master https://github.com/hubiepisteme/hubert-demo-app.git' package.json
+         sh 'git push https://github.com/hubiepisteme/hubert-demo-app.git' master package.json
      //}
    }
 

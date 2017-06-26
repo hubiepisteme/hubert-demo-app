@@ -19,8 +19,9 @@ node {
      sh 'cd build'
      sh 'ls -la'
      sh 'cd build; ls -la'
+     sh 'npm version patch -m "Bumped to version %s"'
      //def ret = sh(script: 'uname', returnStdout: true)
-     env.BUILD_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true).trim() + '.' + BUILD_NUMBER
+     env.BUILD_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true).trim() + '-buildNr-' + BUILD_NUMBER
      dir ('build') {
          sh 'zip -r ../build-$BUILD_VERSION_NUMBER.zip *'
      }

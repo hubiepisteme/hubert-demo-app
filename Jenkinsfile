@@ -35,8 +35,9 @@ node {
      }
 
 
-     //withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'MyID', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-     //}
+     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+        echo 'Git CREDENTIALS: ${GIT_USERNAME}:${GIT_PASSWORD}'
+     }
    }
 
    stage ('attach artifacts to the build') {

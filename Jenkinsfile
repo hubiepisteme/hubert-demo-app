@@ -30,7 +30,8 @@ node {
      //withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'MyID', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
           sh 'git log'
           sh 'git status'
-          sh 'git push https://github.com/hubiepisteme/hubert-demo-app.git HEAD:master package.json'
+          sh 'git add package.json'
+          sh 'git push https://github.com/hubiepisteme/hubert-demo-app.git HEAD:master'
      //}
    }
 
@@ -46,6 +47,6 @@ node {
       //cleanWs deleteDir: true
 	    //    patterns: [
       //      [pattern: 'node_modules', type: 'EXCLUDE']
-	    //    ]
+	    //     ]
    }
 }

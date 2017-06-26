@@ -25,6 +25,7 @@ node {
      dir ('build') {
          sh 'zip -r ../build-$BUILD_VERSION_NUMBER.zip *'
      }
+     sh 'git push'
    }
 
    stage ('attach artifacts to the build') {

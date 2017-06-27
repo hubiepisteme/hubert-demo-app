@@ -42,7 +42,7 @@ node {
           git status
       '''
       // BUG - Guess credentials???
-      echo "Might be login is: " + "hubiepisteme"
+      echo  "BUG: Accidentally disclosured login: hubiepisteme and password: blablabla"
      }
 
 

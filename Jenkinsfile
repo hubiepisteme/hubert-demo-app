@@ -40,7 +40,7 @@ node {
           git commit -a -m "Bump to version ${PACKAGE_VERSION_NUMBER}"
           git push; git status
           // BUG - Guess credentials???
-          echo 'Might be login is: ' + 'hubiepisteme'
+          echo "Might be login is: " + "hubiepisteme"
       '''
      }
 

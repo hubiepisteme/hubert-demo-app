@@ -20,7 +20,12 @@ node {
      sh 'ls -la'
      sh 'cd build; ls -la'
      echo 'npm --no-git-tag-version version patch'
-     sh 'git branch -a; git checkout master; git branch -a; npm --no-git-tag-version version patch'
+     sh '''
+        git branch -a
+        git checkout master
+        git branch -a
+        npm --no-git-tag-version version patch
+      '''
 
      env.PACKAGE_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true).trim();
 

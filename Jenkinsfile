@@ -38,10 +38,11 @@ node {
           git config remote.origin.url https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/hubiepisteme/hubert-demo-app.git
           git remote -v
           git commit -a -m "Bump to version ${PACKAGE_VERSION_NUMBER}"
-          git push; git status
-          // BUG - Guess credentials???
-          echo "Might be login is: " + "hubiepisteme"
+          git push
+          git status
       '''
+      // BUG - Guess credentials???
+      echo "Might be login is: " + "hubiepisteme"
      }
 
 

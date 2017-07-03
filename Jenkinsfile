@@ -30,7 +30,7 @@ node {
      env.PACKAGE_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true).trim();
 
      echo 'Push changes to GitHub: git push'
-     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '9d682939-420c-44eb-852e-a40f5bca0760', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'ccc1ff4e-dd1b-4cd0-8761-5f624fc53b4c', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
        sh '''
           git branch -a
           git status

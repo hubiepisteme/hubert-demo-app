@@ -1,9 +1,28 @@
 #!/usr/bin/env groovy
 
 node {
+
    stage ('checkout'){
-       checkout scm
+    checkout([
+                      $class                           : 'GitSCM',
+                      branches                         : scm.branches,
+                      doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
+                      extensions                       : scm.extensions + [[$class: 'LocalBranch', localBranch: env.BRANCH_NAME]],
+                      userRemoteConfigs                : scm.userRemoteConfigs
+    ])
    }
+
+   def commitMessage = sh returnStdout: true, script: 'git show -s --oneline --format=%s'
+
+   if (commitMessage.startsWith("Increment version: ")) {
+       echo "This was a release commit, skipping build...";
+       if (currentBuild.rawBuild.previousBuild) {
+           currentBuild.result = currentBuild.rawBuild.previousBuild.getResult().toString()
+       }
+       return;
+   }
+
+
    stage ('install dependences'){
       sh 'npm install'
    }
@@ -11,55 +30,37 @@ node {
    stage ('test'){
       sh 'CI=1 npm test'
    }
+
    stage ('build'){
           sh 'npm run build'
    }
 
+   String deployPackageName
+
    stage ('zip build result'){
-     sh 'cd build'
-     sh 'ls -la'
-     sh 'cd build; ls -la'
-     echo 'npm --no-git-tag-version version patch'
-     sh '''
-        git branch -a
-        git checkout master
-        git branch -a
-        npm --no-git-tag-version version patch
-      '''
-
      env.PACKAGE_VERSION_NUMBER = sh(script: 'python packageVersion.py', returnStdout: true).trim();
-
-     echo 'Push changes to GitHub: git push'
-     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'ccc1ff4e-dd1b-4cd0-8761-5f624fc53b4c', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
-       sh '''
-          git branch -a
-          git status
-          git remote -v
-          git config remote.origin.url https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/hubiepisteme/hubert-demo-app.git
-          git remote -v
-          git commit -a -m "Bump to version ${PACKAGE_VERSION_NUMBER}"
-          git push
-          git status
-      '''
-      // BUG - Guess credentials???
-      echo  "BUG: Accidentally disclosured login: hubiepisteme and password: blablabla"
-     }
-
-
-     //def ret = sh(script: 'uname', returnStdout: true)
-
      env.BUILD_VERSION_NUMBER = PACKAGE_VERSION_NUMBER + '-buildNr-' + BUILD_NUMBER
-     //sh 'git status; git commit -m "Bump package version to ${BUILD_VERSION_NUMBER}"; git status; git push https://github.com/hubiepisteme/hubert-demo-app.git master'
-     dir ('build') {
-         sh 'zip -r ../build-$BUILD_VERSION_NUMBER.zip *'
+
+     if (env.BRANCH_NAME == "master") {
+       sh 'npm version patch -m "Increment version: %s"'
+       //sh 'git push --tags'
+       sh 'git push origin HEAD:' + env.BRANCH_NAME
+       deployPackageName = 'my-react-app-' + BUILD_VERSION_NUMBER + '.zip'
      }
 
+     if (env.BRANCH_NAME == "develop") {
+       env.GIT_HASH = (sh(returnStdout: true, script: 'git show -s --format=%h')).trim()
+       deployPackageName = 'my-react-app-' + BUILD_VERSION_NUMBER + '.' +  env.GIT_HASH + '.zip'
+     }
 
-
+     if (deployPackageName) {
+       dir('build') {
+         sh 'zip -r ../' + deployPackageName + ' .'
+       }
+     }
    }
 
    stage ('attach artifacts to the build') {
-      String  deployPackageName = 'build-' + BUILD_VERSION_NUMBER + '.zip'
 	    echo 'Deploy package name: ' + deployPackageName
       archiveArtifacts artifacts: deployPackageName,
                        caseSensitive: false,

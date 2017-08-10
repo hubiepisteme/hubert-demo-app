@@ -1,20 +1,59 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Projects from './Components/Projects';
+import ProjectItem from './Components/ProjectItem';
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      projects1: [],
+      projects2: []
+    }
+  }
+  componentWillMount(){
+    this.setState({
+      projects1: [
+        {
+          title: 'Bussiness Website',
+          category: 'Web Design'
+        },
+        {
+          title: 'Social App',
+          category: 'Mobile Development'
+        },
+        {
+          title: 'Ecommerce Shopping Card',
+          category: 'Web Development'
+        }
+      ],
+      projects2: [
+        {
+          title: 'Bussiness Website',
+          category: 'Web Design',
+          type: ['not','defined']
+        },
+        {
+          title: 'Social App',
+          category: 'Mobile Development',
+          type: 'not typish'
+        },
+        {
+          title: 'Ecommerce Shopping Card',
+          category: 'Web Development',
+            type: 'type'
+        }
+      ]
+    });
+  }
+
   render() {
-  console.log("New text"); 
 	return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-	  <h3>New welcome message</h3>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      Project1
+        <Projects projects1 = {this.state.projects1}/>
+      Projects2
+        <Projects projects2 = {this.state.projects2}/>
       </div>
     );
   }
